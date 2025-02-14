@@ -419,21 +419,24 @@ function checkAnniversary() {
 
     if (anniversary) {  // Check if a date is selected
         if (anniversary === correctDate) {
-            // Show the heart message and the open letter button, hide the input field
-            heartMessage.style.display = 'block';
-            button.classList.add('show');
-            inputContainer.style.opacity = '0';
+            // Wait for 3 seconds before displaying the heart message and button
             setTimeout(() => {
-                inputContainer.style.display = 'none'; // Remove the input
-            }, 500);
+                // Show the heart message and the open letter button, hide the input field
+                heartMessage.style.display = 'block';
+                button.classList.add('show');
+                inputContainer.style.opacity = '0';
+                
+                setTimeout(() => {
+                    inputContainer.style.display = 'none'; // Remove the input
+                }, 500);
 
-            // Calculate the time difference
-            calculateTimeDifference(correctDate);
-            timeDiffHeader.style.display = 'block';
+                // Calculate the time difference
+                calculateTimeDifference(correctDate);
+                timeDiffHeader.style.display = 'block';
+            }, 1500); // 3 seconds delay
         } else {
             heartMessage.style.display = 'none'; // Hide the message if the date is incorrect
             timeDiffHeader.style.display = 'none'; // Hide the time difference header
-            
         }
     } else {
         // If no date is selected, hide the heart message and time difference header
