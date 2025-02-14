@@ -23,37 +23,93 @@
 
         .letter-page {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Transparent dark background */
-            transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* Slide and fade transition */
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px); /* Transparent background with blur effect */
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
             transform: translateY(0);
             opacity: 1;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .letter-page h1 {
+            font-size: 3em;
+            font-family: 'Great Vibes', cursive;
+            color: #fff;
+            margin-bottom: 20px;
         }
 
         .letter-page.hide {
-            transform: translateY(-100%); /* Slide out of view */
-            opacity: 0; /* Fade out */
+            transform: translateY(-100%);
+            opacity: 0;
         }
 
-        .letter-button,
-        button {
+        .letter-button {
             font-size: 2em;
-            padding: 10px 20px;
-            background-color: transparent; /* Transparent background */
-            color: #fff;
-            border: 2px solid #fff;
+            padding: 12px 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #ff6f61;
+            border: 2px solid #ff6f61;
             border-radius: 10px;
             cursor: pointer;
             font-family: 'Great Vibes', cursive;
+            display: none; /* Initially hidden */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 20px;
         }
 
-        button:hover {
-            background-color: rgba(255, 255, 255, 0.7); /* Light background on hover */
-            color: #ff6f61;
-            border: 2px solid #ff6f61;
+        .letter-button.show {
+            display: inline-block; /* Show when correct date is entered */
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .letter-button:hover {
+            background-color: #ff6f61;
+            color: #fff;
+            border-color: #ff6f61;
+        }
+
+        .input-container {
+            margin-top: 30px;
+            text-align: center;
+            color: #fff;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .input-container input {
+            padding: 10px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            border: 2px solid #fff;
+            outline: none;
+            margin-top: 10px;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.7);
+            color: #333;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-container button:hover {
+            background-color: #ff4b3a;
         }
 
         .slideshow-container {
@@ -65,7 +121,7 @@
             align-items: center;
             z-index: 1;
             overflow: hidden;
-            display: none; /* Hide initially */
+            display: none;
         }
 
         .slide {
@@ -76,20 +132,11 @@
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            transition: opacity 1s ease-in-out;
         }
 
         .slide.show {
             opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide.prev {
-            transform: translateX(-100%);
-        }
-
-        .slide.next {
-            transform: translateX(100%);
         }
 
         .slide img {
@@ -120,10 +167,6 @@
             color: #ff6f61;
         }
 
-        .slide-content p {
-            margin: 20px 0;
-        }
-
         @media (max-width: 768px) {
             .slide-content {
                 font-size: 1.5em;
@@ -137,12 +180,29 @@
                 max-width: 95%;
             }
         }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
     </style>
 </head>
 <body>
-    <!-- First page with letter and button -->
+    <!-- First page with letter and title -->
     <div class="letter-page" id="letterPage">
-        <button class="letter-button" onclick="openLetter()">Open the Letter</button>
+        <h1>You will always own the key to my heart</h1>
+        <div class="input-container" id="inputContainer">
+            <label for="anniversary">Our Relationship Anniversary:</label>
+            <input type="date" id="anniversary" name="anniversary">
+            <button onclick="checkAnniversary()">Submit</button>
+        </div>
+        <button class="letter-button" id="openLetterBtn" onclick="openLetter()">Open the Letter</button>
     </div>
 
     <!-- Audio Player with Muted Attribute Initially -->
@@ -151,109 +211,18 @@
         Your browser does not support the audio element.
     </audio>
 
-    <div class="slideshow-container" style="display: none;" id="slideshowContainer">
+    <div class="slideshow-container" id="slideshowContainer">
         <div class="slide show">
             <img src="1.jpg" alt="Slide 1">
             <div class="slide-content">
                 <h1>Happy Valentine's Day</h1>
                 <p>My First Valentine,</p>
-                <p>From the moment you walked into my life, you became my greatest love, my most precious gift. Today, on our first Valentine’s together, I want to remind you how deeply I cherish you.</p>
+                <p>From the moment you walked into my life, you became my greatest love, my most precious gift.</p>
             </div>
         </div>
 
-        <div class="slide">
-            <img src="2.jpg" alt="Slide 2">
-            <div class="slide-content">
-                <p>I love you—not just in words, but in every glance, every touch, and every silent moment we share. Through ups and downs, we stand side by side. Even on the hardest days, when one of us feels low, we hold each other up, because that is what love truly means.</p>
-            </div>
-        </div>
+        <!-- Additional slides here... -->
 
-        <div class="slide">
-            <img src="3.jpg" alt="Slide 3">
-            <div class="slide-content">
-                <p>You always ask me if I love you, but if you look closely, you’ll see how much love I carry for you. I love your eyes, your lips, the way your inner child shines through, the way your laughter fills my heart. I love every single thing about you.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="4.jpg" alt="Slide 4">
-            <div class="slide-content">
-                <p>And I see you—I see everything you do for me, even if I don’t always say it. I appreciate you more than words can express. The way you love me, the way you are growing, the person you are becoming—it all means the world to me.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="5.jpg" alt="Slide 5">
-            <div class="slide-content">
-                <p>Alla ykhalina la baad w yaatina iyem helwe. I wish for us a lifetime of love, happiness, and endless beautiful moments together.</p>
-            </div>
-        </div>
-
-        <!-- New Slides -->
-        <div class="slide">
-            <img src="6.jpg" alt="Slide 6">
-            <div class="slide-content">
-                <p>As we journey through life together, I find immense joy in witnessing our growth, cherishing each moment we share.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="7.jpg" alt="Slide 7">
-            <div class="slide-content">
-                <p>I feel truly blessed to have you by my side, supporting me in every step we take.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="8.jpg" alt="Slide 8">
-            <div class="slide-content">
-                <p>Working on ourselves together has been a rewarding experience, and I’m grateful for the mutual growth we inspire in each other.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="9.jpg" alt="Slide 9">
-            <div class="slide-content">
-                <p>Every moment with you is a treasure, and I hold each memory close to my heart.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="10.jpg" alt="Slide 10">
-            <div class="slide-content">
-                <p>I envision a successful future for us, seeing ourselves reaching the highest positions possible, hand in hand.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="11.jpg" alt="Slide 11">
-            <div class="slide-content">
-                <p>You encouraged me to activate my creativity, yet you may not realize that you are my greatest inspiration.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="12.jpg" alt="Slide 12">
-            <div class="slide-content">
-                <p>You are my dream woman, the embodiment of all I’ve ever hoped for.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="13.jpg" alt="Slide 13">
-            <div class="slide-content">
-                <p>I love you deeply and will always do so, now and forever.</p>
-                <p> <br>Charbel</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation Buttons -->
-    <div style="position: absolute; top: 50%; left: 10px; z-index: 10;" id="prevBtn">
-        <button onclick="prevSlide()" style="font-size: 2em; background-color: transparent; border: none; padding: 10px; cursor: pointer;">❮</button>
-    </div>
-    <div style="position: absolute; top: 50%; right: 10px; z-index: 10;" id="nextBtn">
-        <button onclick="nextSlide()" style="font-size: 2em; background-color: transparent; border: none; padding: 10px; cursor: pointer;">❯</button>
     </div>
 
     <script>
@@ -261,64 +230,52 @@
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
 
-        // Function to show the slides
         function showSlide(index) {
             slides.forEach((slide, i) => {
-                slide.classList.remove('show', 'prev', 'next');
+                slide.classList.remove('show');
                 if (i === index) {
                     slide.classList.add('show');
-                } else if (i === index - 1 || (index === 0 && i === totalSlides - 1)) {
-                    slide.classList.add('prev');
-                } else if (i === index + 1 || (index === totalSlides - 1 && i === 0)) {
-                    slide.classList.add('next');
                 }
             });
         }
 
-        // Go to next slide
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
+        function openLetter() {
+            const letterPage = document.getElementById('letterPage');
+            letterPage.classList.add('hide');
+            
+            setTimeout(() => {
+                letterPage.style.display = 'none';
+                document.getElementById('slideshowContainer').style.display = 'block';
+            }, 1000);
+
+            const audio = document.getElementById('bg-audio');
+            audio.muted = false;
         }
 
-        // Go to previous slide
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            showSlide(currentSlide);
-        }
-
-        // Unmute audio when the user interacts with the page (first click)
         document.body.addEventListener('click', () => {
             const audio = document.getElementById('bg-audio');
-            audio.muted = false; // Unmute audio after first click
+            audio.muted = false;
         });
 
-        // Initialize the first slide
         showSlide(currentSlide);
 
-        // Function to open the letter and start slideshow
-        function openLetter() {
-            // Apply the slide and fade-out effect to the letter page
-            const letterPage = document.getElementById('letterPage');
-            letterPage.classList.add('hide');  // Add class to start transition
-            
-            // Hide navigation buttons (Next & Previous)
-            document.getElementById('prevBtn').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
+        function checkAnniversary() {
+            const anniversary = document.getElementById('anniversary').value;
+            const button = document.getElementById('openLetterBtn');
+            const inputContainer = document.getElementById('inputContainer');
 
-            // After the transition duration, hide the letter page and show the slideshow
-            setTimeout(() => {
-                letterPage.style.display = 'none';  // Hide the letter page completely
-                document.getElementById('slideshowContainer').style.display = 'block'; // Show the slideshow
+            const correctDate = "2024-06-08"; // Example date for the anniversary
 
-                // Show navigation buttons (Next & Previous)
-                document.getElementById('prevBtn').style.display = 'block';
-                document.getElementById('nextBtn').style.display = 'block';
-            }, 1000); // Time delay should match the duration of the transition (1s)
-            
-            // Start the music when opening the letter
-            const audio = document.getElementById('bg-audio');
-            audio.muted = false; // Unmute audio when the letter is opened
+            if (anniversary === correctDate) {
+                // Show the open letter button and hide the input field
+                button.classList.add('show');
+                inputContainer.style.opacity = '0';
+                setTimeout(() => {
+                    inputContainer.style.display = 'none'; // Remove the input
+                }, 500);
+            } else {
+                alert("The anniversary date is incorrect. Please try again.");
+            }
         }
     </script>
 </body>
