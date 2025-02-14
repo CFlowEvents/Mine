@@ -255,7 +255,7 @@
     
     <div class="input-container" id="inputContainer">
         <label for="anniversary">Our Relationship Anniversary:</label>
-        <input type="date" id="anniversary" name="anniversary" onchange="checkAnniversary()">
+        <input type="date" id="anniversary" name="anniversary" onchange="checkAnniversary()" onblur="checkAnniversary()"  placeholder="YYYY-MM-DD">
     </div>
     <button class="letter-button" id="openLetterBtn" onclick="openLetter()">Open the Letter</button>
 </div>
