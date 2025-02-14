@@ -28,6 +28,14 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.4); /* Transparent dark background */
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* Slide and fade transition */
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .letter-page.hide {
+            transform: translateY(-100%); /* Slide out of view */
+            opacity: 0; /* Fade out */
         }
 
         .letter-button,
@@ -178,7 +186,6 @@
             <img src="5.jpg" alt="Slide 5">
             <div class="slide-content">
                 <p>Alla ykhalina la baad w yaatina iyem helwe. I wish for us a lifetime of love, happiness, and endless beautiful moments together.</p>
-               
             </div>
         </div>
 
@@ -236,7 +243,7 @@
             <img src="13.jpg" alt="Slide 13">
             <div class="slide-content">
                 <p>I love you deeply and will always do so, now and forever.</p>
-				<p> <br>Charbel</p>
+                <p> <br>Charbel</p>
             </div>
         </div>
     </div>
@@ -291,11 +298,16 @@
 
         // Function to open the letter and start slideshow
         function openLetter() {
-            // Hide the letter page
-            document.getElementById('letterPage').style.display = 'none';
-            // Show the slideshow container
-            document.getElementById('slideshowContainer').style.display = 'block';
-
+            // Apply the slide and fade-out effect to the letter page
+            const letterPage = document.getElementById('letterPage');
+            letterPage.classList.add('hide');  // Add class to start transition
+            
+            // After the transition duration, hide the letter page and show the slideshow
+            setTimeout(() => {
+                letterPage.style.display = 'none';  // Hide the letter page completely
+                document.getElementById('slideshowContainer').style.display = 'block'; // Show the slideshow
+            }, 1000); // Time delay should match the duration of the transition (1s)
+            
             // Start the music when opening the letter
             const audio = document.getElementById('bg-audio');
             audio.muted = false; // Unmute audio when the letter is opened
