@@ -30,10 +30,11 @@
             background: rgba(0, 0, 0, 0.4); /* Transparent dark background */
         }
 
-        .letter-button {
+        .letter-button,
+        button {
             font-size: 2em;
-            padding: 20px 40px;
-            background-color: transparent;
+            padding: 10px 20px;
+            background-color: transparent; /* Transparent background */
             color: #fff;
             border: 2px solid #fff;
             border-radius: 10px;
@@ -41,8 +42,8 @@
             font-family: 'Great Vibes', cursive;
         }
 
-        .letter-button:hover {
-            background-color: #fff;
+        button:hover {
+            background-color: rgba(255, 255, 255, 0.7); /* Light background on hover */
             color: #ff6f61;
             border: 2px solid #ff6f61;
         }
@@ -151,19 +152,43 @@
                 <p>From the moment you walked into my life, you became my greatest love, my most precious gift. Today, on our first Valentine’s together, I want to remind you how deeply I cherish you.</p>
             </div>
         </div>
+
         <div class="slide">
             <img src="2.jpg" alt="Slide 2">
             <div class="slide-content">
                 <p>I love you—not just in words, but in every glance, every touch, and every silent moment we share. Through ups and downs, we stand side by side. Even on the hardest days, when one of us feels low, we hold each other up, because that is what love truly means.</p>
             </div>
         </div>
+
         <div class="slide">
             <img src="3.jpg" alt="Slide 3">
             <div class="slide-content">
                 <p>You always ask me if I love you, but if you look closely, you’ll see how much love I carry for you. I love your eyes, your lips, the way your inner child shines through, the way your laughter fills my heart. I love every single thing about you.</p>
             </div>
         </div>
-        <!-- More slides as necessary -->
+
+        <div class="slide">
+            <img src="4.jpg" alt="Slide 4">
+            <div class="slide-content">
+                <p>And I see you—I see everything you do for me, even if I don’t always say it. I appreciate you more than words can express. The way you love me, the way you are growing, the person you are becoming—it all means the world to me.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="5.jpg" alt="Slide 5">
+            <div class="slide-content">
+                <p>Alla ykhalina la baad w yaatina iyem helwe. I wish for us a lifetime of love, happiness, and endless beautiful moments together.</p>
+                <p>Forever yours,<br>Charbel</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div style="position: absolute; top: 50%; left: 10px; z-index: 10;">
+        <button onclick="prevSlide()" style="font-size: 2em; background-color: transparent; border: none; padding: 10px; cursor: pointer;">❮</button>
+    </div>
+    <div style="position: absolute; top: 50%; right: 10px; z-index: 10;">
+        <button onclick="nextSlide()" style="font-size: 2em; background-color: transparent; border: none; padding: 10px; cursor: pointer;">❯</button>
     </div>
 
     <script>
@@ -197,9 +222,6 @@
             showSlide(currentSlide);
         }
 
-        // Auto slide every 5 seconds
-        setInterval(nextSlide, 5000); // Change slide every 5 seconds
-
         // Unmute audio when the user interacts with the page (first click)
         document.body.addEventListener('click', () => {
             const audio = document.getElementById('bg-audio');
@@ -220,28 +242,6 @@
             const audio = document.getElementById('bg-audio');
             audio.muted = false; // Unmute audio when the letter is opened
         }
-
-        // Adding swipe functionality for mobile (swipe to next and previous slide)
-        let touchstartX = 0;
-        let touchendX = 0;
-
-        const handleSwipe = () => {
-            if (touchendX < touchstartX) {
-                nextSlide();
-            }
-            if (touchendX > touchstartX) {
-                prevSlide();
-            }
-        }
-
-        document.body.addEventListener('touchstart', (e) => {
-            touchstartX = e.changedTouches[0].screenX;
-        });
-
-        document.body.addEventListener('touchend', (e) => {
-            touchendX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
     </script>
 </body>
 </html>
