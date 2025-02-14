@@ -167,6 +167,29 @@
             color: #ff6f61;
         }
 
+        /* Transparent arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            z-index: 10;
+            font-size: 3em;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .nav-arrow:hover {
+            color: #ff6f61;
+        }
+
+        .prev {
+            left: 30px;
+        }
+
+        .next {
+            right: 30px;
+        }
+
         @media (max-width: 768px) {
             .slide-content {
                 font-size: 1.5em;
@@ -190,7 +213,6 @@
                 opacity: 1;
             }
         }
-
     </style>
 </head>
 <body>
@@ -217,12 +239,98 @@
             <div class="slide-content">
                 <h1>Happy Valentine's Day</h1>
                 <p>My First Valentine,</p>
-                <p>From the moment you walked into my life, you became my greatest love, my most precious gift.</p>
+                <p>From the moment you walked into my life, you became my greatest love, my most precious gift. Today, on our first Valentine’s together, I want to remind you how deeply I cherish you.</p>
             </div>
         </div>
 
-        <!-- Additional slides here... -->
+        <div class="slide">
+            <img src="2.jpg" alt="Slide 2">
+            <div class="slide-content">
+                <p>I love you—not just in words, but in every glance, every touch, and every silent moment we share. Through ups and downs, we stand side by side. Even on the hardest days, when one of us feels low, we hold each other up, because that is what love truly means.</p>
+            </div>
+        </div>
 
+        <div class="slide">
+            <img src="3.jpg" alt="Slide 3">
+            <div class="slide-content">
+                <p>You always ask me if I love you, but if you look closely, you’ll see how much love I carry for you. I love your eyes, your lips, the way your inner child shines through, the way your laughter fills my heart. I love every single thing about you.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="4.jpg" alt="Slide 4">
+            <div class="slide-content">
+                <p>And I see you—I see everything you do for me, even if I don’t always say it. I appreciate you more than words can express. The way you love me, the way you are growing, the person you are becoming—it all means the world to me.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="5.jpg" alt="Slide 5">
+            <div class="slide-content">
+                <p>Alla ykhalina la baad w yaatina iyem helwe. I wish for us a lifetime of love, happiness, and endless beautiful moments together.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="6.jpg" alt="Slide 6">
+            <div class="slide-content">
+                <p>As we journey through life together, I find immense joy in witnessing our growth, cherishing each moment we share.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="7.jpg" alt="Slide 7">
+            <div class="slide-content">
+                <p>I feel truly blessed to have you by my side, supporting me in every step we take.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="8.jpg" alt="Slide 8">
+            <div class="slide-content">
+                <p>Working on ourselves together has been a rewarding experience, and I’m grateful for the mutual growth we inspire in each other.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="9.jpg" alt="Slide 9">
+            <div class="slide-content">
+                <p>Every moment with you is a treasure, and I hold each memory close to my heart.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="10.jpg" alt="Slide 10">
+            <div class="slide-content">
+                <p>I envision a successful future for us, seeing ourselves reaching the highest positions possible, hand in hand.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="11.jpg" alt="Slide 11">
+            <div class="slide-content">
+                <p>You encouraged me to activate my creativity, yet you may not realize that you are my greatest inspiration.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="12.jpg" alt="Slide 12">
+            <div class="slide-content">
+                <p>You are my dream woman, the embodiment of all I’ve ever hoped for.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="13.jpg" alt="Slide 13">
+            <div class="slide-content">
+                <p>I love you deeply and will always do so, now and forever.</p>
+                <p><br>Charbel</p>
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="nav-arrow prev" onclick="prevSlide()">❮</div>
+        <div class="nav-arrow next" onclick="nextSlide()">❯</div>
     </div>
 
     <script>
@@ -254,12 +362,15 @@
             audio.muted = false;
         }
 
-        document.body.addEventListener('click', () => {
-            const audio = document.getElementById('bg-audio');
-            audio.muted = false;
-        });
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
 
-        showSlide(currentSlide);
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
 
         function checkAnniversary() {
             const anniversary = document.getElementById('anniversary').value;
