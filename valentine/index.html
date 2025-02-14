@@ -249,10 +249,10 @@
     </div>
 
     <!-- Navigation Buttons -->
-    <div style="position: absolute; top: 50%; left: 10px; z-index: 10;">
+    <div style="position: absolute; top: 50%; left: 10px; z-index: 10;" id="prevBtn">
         <button onclick="prevSlide()" style="font-size: 2em; background-color: transparent; border: none; padding: 10px; cursor: pointer;">❮</button>
     </div>
-    <div style="position: absolute; top: 50%; right: 10px; z-index: 10;">
+    <div style="position: absolute; top: 50%; right: 10px; z-index: 10;" id="nextBtn">
         <button onclick="nextSlide()" style="font-size: 2em; background-color: transparent; border: none; padding: 10px; cursor: pointer;">❯</button>
     </div>
 
@@ -302,10 +302,18 @@
             const letterPage = document.getElementById('letterPage');
             letterPage.classList.add('hide');  // Add class to start transition
             
+            // Hide navigation buttons (Next & Previous)
+            document.getElementById('prevBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+
             // After the transition duration, hide the letter page and show the slideshow
             setTimeout(() => {
                 letterPage.style.display = 'none';  // Hide the letter page completely
                 document.getElementById('slideshowContainer').style.display = 'block'; // Show the slideshow
+
+                // Show navigation buttons (Next & Previous)
+                document.getElementById('prevBtn').style.display = 'block';
+                document.getElementById('nextBtn').style.display = 'block';
             }, 1000); // Time delay should match the duration of the transition (1s)
             
             // Start the music when opening the letter
