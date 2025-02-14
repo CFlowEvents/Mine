@@ -55,8 +55,8 @@
             font-size: 2em;
             padding: 12px 25px;
             background-color: rgba(255, 255, 255, 0.8);
-            color: #ff6f61;
-            border: 2px solid #ff6f61;
+            color: #ff2a2a;
+            border: 2px solid #ff2a2a;
             border-radius: 10px;
             cursor: pointer;
             font-family: 'Great Vibes', cursive;
@@ -71,9 +71,9 @@
         }
 
         .letter-button:hover {
-            background-color: #ff6f61;
+            background-color: #ff2a2a;
             color: #fff;
-            border-color: #ff6f61;
+            border-color: #ff2a2a;
         }
 
         .input-container {
@@ -84,21 +84,28 @@
             transition: opacity 0.5s ease-out;
         }
 
-        .input-container input {
-            padding: 10px;
-            font-size: 1.2em;
-            border-radius: 10px;
-            border: 2px solid #fff;
-            outline: none;
-            margin-top: 10px;
-            width: 280px;
-            background: rgba(255, 255, 255, 0.7);
-            color: #333;
-        }
+      .input-container label {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8em;
+    color: #fff;
+}
+
+.input-container input {
+    padding: 12px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    outline: none;
+    width: 280px;
+    background: transparent;
+    color: #fff;
+    text-align: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
         .input-container button {
             padding: 10px 20px;
-            background-color: #ff6f61;
+            background-color: #ff2a2a;
             color: white;
             border: none;
             border-radius: 10px;
@@ -164,7 +171,7 @@
         .slide-content h1 {
             margin-top: 0;
             font-size: 3em;
-            color: #ff6f61;
+            color: #ff2a2a;
         }
 
         /* Transparent arrows */
@@ -179,7 +186,7 @@
         }
 
         .nav-arrow:hover {
-            color: #ff6f61;
+            color: #ff2a2a;
         }
 
         .prev {
@@ -213,19 +220,48 @@
                 opacity: 1;
             }
         }
+		/* Original Heart Message Design */
+
+
+#timeDiffHeader {
+    background-color: rgba(0, 0, 0, 0);  /* Fully transparent background */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: keep slight shadow for visibility */
+    max-width: 600px;  /* Limit the width */
+    margin: 20px auto;  /* Center the content */
+}
+
+#timeDiffText {
+    font-size: 1.2em;
+    color: #FFFFFF;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
     </style>
 </head>
 <body>
     <!-- First page with letter and title -->
-    <div class="letter-page" id="letterPage">
-        <h1>You will always own the key to my heart</h1>
-        <div class="input-container" id="inputContainer">
-            <label for="anniversary">Our Relationship Anniversary:</label>
-            <input type="date" id="anniversary" name="anniversary">
-            <button onclick="checkAnniversary()">Submit</button>
-        </div>
-        <button class="letter-button" id="openLetterBtn" onclick="openLetter()">Open the Letter</button>
+ <div class="letter-page" id="letterPage">
+    <!-- Original Message -->
+    <h1 id="heartMessage" style="display: none;">You will always own the key to my heart</h1>
+    
+    <!-- Display the time difference header with transparent background -->
+    <div id="timeDiffHeader" style="display: none;">
+        <p id="timeDiffText"></p>
     </div>
+    
+    <div class="input-container" id="inputContainer">
+        <label for="anniversary">Our Relationship Anniversary:</label>
+        <input type="date" id="anniversary" name="anniversary" onchange="checkAnniversary()">
+    </div>
+    <button class="letter-button" id="openLetterBtn" onclick="openLetter()">Open the Letter</button>
+</div>
+
+
+
 
     <!-- Audio Player with Muted Attribute Initially -->
     <audio id="bg-audio" autoplay loop muted>
@@ -274,7 +310,7 @@
         <div class="slide">
             <img src="6.jpg" alt="Slide 6">
             <div class="slide-content">
-                <p>As we journey through life together, I find immense joy in witnessing our growth, cherishing each moment we share.</p>
+                <p>As we go through life together, I feel so happy seeing us grow and enjoying every moment we share.</p>
             </div>
         </div>
 
@@ -372,24 +408,63 @@
             showSlide(currentSlide);
         }
 
-        function checkAnniversary() {
-            const anniversary = document.getElementById('anniversary').value;
-            const button = document.getElementById('openLetterBtn');
-            const inputContainer = document.getElementById('inputContainer');
+function checkAnniversary() {
+    const anniversary = document.getElementById('anniversary').value;
+    const button = document.getElementById('openLetterBtn');
+    const inputContainer = document.getElementById('inputContainer');
+    const heartMessage = document.getElementById('heartMessage');
+    const timeDiffHeader = document.getElementById('timeDiffHeader');
+    const timeDiffText = document.getElementById('timeDiffText');
 
-            const correctDate = "2024-06-08"; // Example date for the anniversary
+    const correctDate = "2024-06-08"; // Example date for the anniversary
 
-            if (anniversary === correctDate) {
-                // Show the open letter button and hide the input field
-                button.classList.add('show');
-                inputContainer.style.opacity = '0';
-                setTimeout(() => {
-                    inputContainer.style.display = 'none'; // Remove the input
-                }, 500);
-            } else {
-                alert("The anniversary date is incorrect. Please try again.");
-            }
-        }
+    if (anniversary === correctDate) {
+        // Show the heart message and the open letter button, hide the input field
+        heartMessage.style.display = 'block';
+        button.classList.add('show');
+        inputContainer.style.opacity = '0';
+        setTimeout(() => {
+            inputContainer.style.display = 'none'; // Remove the input
+        }, 500);
+
+        // Calculate the time difference
+        calculateTimeDifference(correctDate);
+        timeDiffHeader.style.display = 'block';
+    } else {
+        heartMessage.style.display = 'none'; // Hide the message if the date is incorrect
+        timeDiffHeader.style.display = 'none'; // Hide the time difference header
+        alert("The anniversary date is incorrect. Please try again.");
+    }
+}
+
+function calculateTimeDifference(anniversaryDate) {
+    const now = new Date();
+    const anniversary = new Date(anniversaryDate);
+
+    // Calculate time difference
+    let diff = now - anniversary;
+
+    const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+    diff -= years * (1000 * 60 * 60 * 24 * 365);
+
+    const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+    diff -= months * (1000 * 60 * 60 * 24 * 30);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * (1000 * 60 * 60 * 24);
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+
+    // Update the time difference text
+    const timeDiffTextContent = `
+        ${years} Years, ${months} Months, ${days} Days, ${hours} Hours
+		<br><strong>of Wonderful Moments</strong>
+    `;
+    timeDiffText.innerHTML = timeDiffTextContent;
+}
+
+
+
     </script>
 </body>
 </html>
