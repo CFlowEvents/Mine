@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day Letter</title>
+    <title>Anniversary Date</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -12,466 +12,137 @@
             width: 100%;
             height: 100%;
             font-family: 'Roboto', sans-serif;
-            overflow: hidden;
-            background: url('1.jpg') no-repeat center center fixed;
-            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: absolute;
-        }
-
-        .letter-page {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-            transform: translateY(0);
-            opacity: 1;
-            text-align: center;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .letter-page h1 {
-            font-size: 3em;
-            font-family: 'Great Vibes', cursive;
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .letter-page.hide {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-
-        .letter-button {
-            font-size: 2em;
-            padding: 12px 25px;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #ff2a2a;
-            border: 2px solid #ff2a2a;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: 'Great Vibes', cursive;
-            display: none;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .letter-button.show {
-            display: inline-block;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        .letter-button:hover {
-            background-color: #ff2a2a;
-            color: #fff;
-            border-color: #ff2a2a;
-        }
-
-        .input-container {
-            margin-top: 30px;
-            text-align: center;
-            color: #fff;
-            opacity: 1;
-            transition: opacity 0.5s ease-out;
-        }
-
-      .input-container label {
-    font-family: 'Great Vibes', cursive;
-    font-size: 1.8em;
-    color: #fff;
-}
-
-.input-container input {
-    padding: 12px;
-    font-size: 1.2em;
-    border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    outline: none;
-    width: 280px;
-    background: transparent;
-    color: #fff;
-    text-align: center;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-        .input-container button {
-            padding: 10px 20px;
-            background-color: #ff2a2a;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-
-        .input-container button:hover {
-            background-color: #ff4b3a;
-        }
-
-        .slideshow-container {
             position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-            overflow: hidden;
-            display: none;
         }
 
-        .slide {
-            position: absolute;
+        /* Background image */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
+            background: url('images/valentine/14.jpg') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -2;
+        }
+
+        /* Blur effect overlay */
+        .background::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px); /* Proper Blur */
+            background: rgba(0, 0, 0, 0.3); /* Dark overlay */
+            z-index: -1;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            color: #fff;
             transition: opacity 1s ease-in-out;
         }
 
-        .slide.show {
-            opacity: 1;
-        }
-
-        .slide img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .slide-content {
-            position: relative;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 2em;
-            line-height: 1.6;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.8em;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        input {
+            padding: 14px;
+            font-size: 1.3em;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            outline: none;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
             text-align: center;
-            max-width: 80%;
-            margin: 20px;
-            z-index: 2;
+            transition: all 0.3s ease-in-out;
         }
 
-        .slide-content h1 {
-            margin-top: 0;
-            font-size: 3em;
-            color: #ff2a2a;
+        input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #ff4b3a;
         }
 
-        /* Transparent arrows */
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            z-index: 10;
-            font-size: 3em;
-            color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: color 0.3s ease;
+        #error, #success {
+            font-size: 1.2em;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            width: 80%;
+            display: inline-block;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        .nav-arrow:hover {
-            color: #ff2a2a;
+        #error {
+            color: #fff;
+            background: rgba(255, 50, 50, 0.8);
+            font-weight: bold;
         }
 
-        .prev {
-            left: 30px;
+        #success {
+            color: #fff;
+            background: rgba(50, 205, 50, 0.8);
+            font-weight: bold;
         }
-
-        .next {
-            right: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .slide-content {
-                font-size: 1.5em;
-                max-width: 90%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .slide-content {
-                font-size: 1.2em;
-                max-width: 95%;
-            }
-        }
-
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-		/* Original Heart Message Design */
-
-
-#timeDiffHeader {
-    background-color: rgba(0, 0, 0, 0);  /* Fully transparent background */
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: keep slight shadow for visibility */
-    max-width: 600px;  /* Limit the width */
-    margin: 20px auto;  /* Center the content */
-}
-
-#timeDiffText {
-    font-size: 1.2em;
-    color: #FFFFFF;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-}
-
     </style>
 </head>
 <body>
-    <!-- First page with letter and title -->
- <div class="letter-page" id="letterPage">
-    <!-- Original Message -->
-    <h1 id="heartMessage" style="display: none;">You will always own the key to my heart</h1>
-    
-    <!-- Display the time difference header with transparent background -->
-    <div id="timeDiffHeader" style="display: none;">
-        <p id="timeDiffText"></p>
-    </div>
-    
-    <div class="input-container" id="inputContainer">
+    <div class="background"></div>
+
+    <div class="container" id="container">
+        <h1>You will always own the key to my heart</h1>
         <label for="anniversary">Our Relationship Anniversary:</label>
-        <input type="date" id="anniversary" name="anniversary" onchange="checkAnniversary()" onblur="checkAnniversary()"  placeholder="YYYY-MM-DD">
-    </div>
-    <button class="letter-button" id="openLetterBtn" onclick="openLetter()">Open the Letter</button>
-</div>
-
-
-
-
-    <!-- Audio Player with Muted Attribute Initially -->
-    <audio id="bg-audio" autoplay loop muted>
-        <source src="background-music.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-
-    <div class="slideshow-container" id="slideshowContainer">
-        <div class="slide show">
-            <img src="1.jpg" alt="Slide 1">
-            <div class="slide-content">
-                <h1>Happy Valentine's Day</h1>
-                <p>My First Valentine,</p>
-                <p>From the moment you walked into my life, you became my greatest love, my most precious gift. Today, on our first Valentine’s together, I want to remind you how deeply I cherish you.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="2.jpg" alt="Slide 2">
-            <div class="slide-content">
-                <p>I love you—not just in words, but in every glance, every touch, and every silent moment we share. Through ups and downs, we stand side by side. Even on the hardest days, when one of us feels low, we hold each other up, because that is what love truly means.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="3.jpg" alt="Slide 3">
-            <div class="slide-content">
-                <p>You always ask me if I love you, but if you look closely, you’ll see how much love I carry for you. I love your eyes, your lips, the way your inner child shines through, the way your laughter fills my heart. I love every single thing about you.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="4.jpg" alt="Slide 4">
-            <div class="slide-content">
-                <p>And I see you—I see everything you do for me, even if I don’t always say it. I appreciate you more than words can express. The way you love me, the way you are growing, the person you are becoming—it all means the world to me.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="5.jpg" alt="Slide 5">
-            <div class="slide-content">
-                <p>Alla ykhalina la baad w yaatina iyem helwe. I wish for us a lifetime of love, happiness, and endless beautiful moments together.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="6.jpg" alt="Slide 6">
-            <div class="slide-content">
-                <p>As we go through life together, I feel so happy seeing us grow and enjoying every moment we share.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="7.jpg" alt="Slide 7">
-            <div class="slide-content">
-                <p>I feel truly blessed to have you by my side, supporting me in every step we take.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="8.jpg" alt="Slide 8">
-            <div class="slide-content">
-                <p>Working on ourselves together has been a rewarding experience, and I’m grateful for the mutual growth we inspire in each other.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="9.jpg" alt="Slide 9">
-            <div class="slide-content">
-                <p>Every moment with you is a treasure, and I hold each memory close to my heart.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="10.jpg" alt="Slide 10">
-            <div class="slide-content">
-                <p>I envision a successful future for us, seeing ourselves reaching the highest positions possible, hand in hand.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="11.jpg" alt="Slide 11">
-            <div class="slide-content">
-                <p>You encouraged me to activate my creativity, yet you may not realize that you are my greatest inspiration.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="12.jpg" alt="Slide 12">
-            <div class="slide-content">
-                <p>You are my dream woman, the embodiment of all I’ve ever hoped for.</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <img src="13.jpg" alt="Slide 13">
-            <div class="slide-content">
-                <p>I love you deeply and will always do so, now and forever.</p>
-                <p><br>Charbel</p>
-            </div>
-        </div>
-
-        <!-- Navigation Arrows -->
-        <div class="nav-arrow prev" onclick="prevSlide()">❮</div>
-        <div class="nav-arrow next" onclick="nextSlide()">❯</div>
+        <input type="date" id="anniversary" name="anniversary">
+        <p id="error">That's not the right date. Try again!</p>
+        <p id="success">✔ Correct! Redirecting...</p>
     </div>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        document.getElementById("anniversary").addEventListener("change", function() {
+            const anniversary = this.value;
+            const correctDate = "2024-06-08"; 
+            const error = document.getElementById("error");
+            const success = document.getElementById("success");
+            const container = document.getElementById("container");
 
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('show');
-                if (i === index) {
-                    slide.classList.add('show');
-                }
-            });
-        }
+            if (anniversary === correctDate) {
+                localStorage.setItem("anniversaryVerified", "true");
 
-        function openLetter() {
-            const letterPage = document.getElementById('letterPage');
-            const button = document.getElementById('openLetterBtn');
-            letterPage.classList.add('hide');
-            
-            setTimeout(() => {
-                letterPage.style.display = 'none';
-                document.getElementById('slideshowContainer').style.display = 'block';
-            }, 1000);
+                error.style.opacity = 0;
+                success.style.opacity = 1;
 
-            // Start the music on button click
-            const audio = document.getElementById('bg-audio');
-            audio.muted = false;
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            showSlide(currentSlide);
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        }
-function checkAnniversary() {
-    const anniversary = document.getElementById('anniversary').value;
-    const button = document.getElementById('openLetterBtn');
-    const inputContainer = document.getElementById('inputContainer');
-    const heartMessage = document.getElementById('heartMessage');
-    const timeDiffHeader = document.getElementById('timeDiffHeader');
-    const timeDiffText = document.getElementById('timeDiffText');
-
-    const correctDate = "2024-06-08"; // Example date for the anniversary
-
-    if (anniversary) {  // Check if a date is selected
-        if (anniversary === correctDate) {
-            // Wait for 3 seconds before displaying the heart message and button
-            setTimeout(() => {
-                // Show the heart message and the open letter button, hide the input field
-                heartMessage.style.display = 'block';
-                button.classList.add('show');
-                inputContainer.style.opacity = '0';
-                
                 setTimeout(() => {
-                    inputContainer.style.display = 'none'; // Remove the input
-                }, 500);
+                    container.style.opacity = "0";
+                }, 3000);
 
-                // Calculate the time difference
-                calculateTimeDifference(correctDate);
-                timeDiffHeader.style.display = 'block';
-            }, 1500); // 3 seconds delay
-        } else {
-            heartMessage.style.display = 'none'; // Hide the message if the date is incorrect
-            timeDiffHeader.style.display = 'none'; // Hide the time difference header
-        }
-    } else {
-        // If no date is selected, hide the heart message and time difference header
-        heartMessage.style.display = 'none';
-        timeDiffHeader.style.display = 'none';
-    }
-}
-
-function calculateTimeDifference(anniversaryDate) {
-    const now = new Date();
-    const anniversary = new Date(anniversaryDate);
-
-    // Calculate time difference
-    let diff = now - anniversary;
-
-    const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
-    diff -= years * (1000 * 60 * 60 * 24 * 365);
-
-    const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-    diff -= months * (1000 * 60 * 60 * 24 * 30);
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    diff -= days * (1000 * 60 * 60 * 24);
-
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-
-    // Update the time difference text
-    const timeDiffTextContent = `
-        ${years} Years, ${months} Months, ${days} Days, ${hours} Hours
-        <br><strong>of Wonderful Moments</strong>
-    `;
-    timeDiffText.innerHTML = timeDiffTextContent;
-}
-
-
+                setTimeout(() => {
+                    window.location.href = "menu.html";
+                }, 5000);
+            } else {
+                success.style.opacity = 0;
+                error.style.opacity = 1;
+            }
+        });
     </script>
 </body>
 </html>

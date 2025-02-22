@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>story's Day Letter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+            background: url('images/story/1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+        }
+.letter-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    transform: translateY(0);
+    opacity: 1;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease-in-out; /* Add this line */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+        .letter-page h1 {
+            font-size: 3em;
+            font-family: 'Great Vibes', cursive;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .letter-page.hide {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .letter-button {
+            font-size: 2em;
+            padding: 12px 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #ff2a2a;
+            border: 2px solid #ff2a2a;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Great Vibes', cursive;
+            display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .letter-button.show {
+            display: inline-block;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .letter-button:hover {
+            background-color: #ff2a2a;
+            color: #fff;
+            border-color: #ff2a2a;
+        }
+
+        .input-container {
+            margin-top: 30px;
+            text-align: center;
+            color: #fff;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+
+      .input-container label {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8em;
+    color: #fff;
+}
+
+.input-container input {
+    padding: 12px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    outline: none;
+    width: 280px;
+    background: transparent;
+    color: #fff;
+    text-align: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+        .input-container button {
+            padding: 10px 20px;
+            background-color: #ff2a2a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-container button:hover {
+            background-color: #ff4b3a;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            overflow: hidden;
+            display: none;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.show {
+            opacity: 1;
+        }
+
+        .slide img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: relative;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Great Vibes', cursive;
+            font-size: 2em;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 80%;
+            margin: 20px;
+            z-index: 2;
+        }
+
+        .slide-content h1 {
+            margin-top: 0;
+            font-size: 3em;
+            color: #ff2a2a;
+        }
+
+        /* Transparent arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            z-index: 10;
+            font-size: 3em;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .nav-arrow:hover {
+            color: #ff2a2a;
+        }
+
+        .prev {
+            left: 30px;
+        }
+
+        .next {
+            right: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .slide-content {
+                font-size: 1.5em;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide-content {
+                font-size: 1.2em;
+                max-width: 95%;
+            }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+		/* Original Heart Message Design */
+
+
+#timeDiffHeader {
+    background-color: rgba(0, 0, 0, 0);  /* Fully transparent background */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: keep slight shadow for visibility */
+    max-width: 600px;  /* Limit the width */
+    margin: 20px auto;  /* Center the content */
+}
+
+#timeDiffText {
+    font-size: 1.2em;
+    color: #FFFFFF;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <!-- First page with letter and title -->
+    <div class="letter-page" id="letterPage">
+        <!-- Original Message -->
+        <h1 id="heartMessage" style="display: none;">We have a wonderful story to tell</h1>
+
+        <!-- Display the time difference header with a transparent background -->
+        <div id="timeDiffHeader" style="display: none;">
+            <p id="timeDiffText"></p>
+        </div>
+
+        <button class="letter-button" id="openLetterBtn" onclick="openLetter()">Start the story</button>
+    </div>
+
+    <!-- Audio Player with Muted Attribute Initially -->
+    <audio id="bg-audio" autoplay loop muted>
+        <source src="background-music.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+   <div class="slideshow-container" id="slideshowContainer" style="display: none;">
+        <div class="slide show">
+            <img src="images/story/1.jpg" alt="First Meeting">
+            <div class="slide-content">
+            <p>At first, we were in university together during the first semester. She didn’t really catch my attention, and I didn’t catch hers either… or at least that’s what I thought. But maybe, just maybe, she liked me a little. 😛</p>
+        </div>
+        </div>
+    <div class="slide">
+        <img src="images/story/2.jpg" alt="Slide 2">
+        <div class="slide-content">
+            <p>She had a best friend, and I became close to her best friend. That’s when she started calling me “Gojon.”</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="images/story/3.jpg" alt="Slide 3">
+        <div class="slide-content">
+            <p>Time passed, and things changed. I wasn’t that close to her best friend anymore. At the end of the semester, I was supposed to drop her best friend home, but she was going with someone else. So instead, she asked her to go with me.</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="images/story/4.jpg" alt="Slide 4">
+        <div class="slide-content">
+            <p>We reached Village Dbayeh, and on the way, she stopped to buy dessert for someone. She didn’t want anything for herself, but she still bought me an éclair. I refused to take it. That moment stayed in her mind—she never forgot that I didn’t eat the éclair.</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="images/story/5.jpg" alt="Slide 5">
+        <div class="slide-content">
+            <p>When we arrived, I could tell she was craving for me to kiss her… but I didn’t. She stayed distant, and nothing happened.</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="images/story/6.jpg" alt="Slide 6">
+        <div class="slide-content">
+            <p>The next semester came. At first, we were just friends.</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="images/story/7.jpg" alt="Slide 7">
+        <div class="slide-content">
+            <p>Then one day, at AUL University, we stood outside near the glass railing at the entrance. She was telling me about her life, her adventures, and the things she loved. I was sharing mine too. And that’s when my heart started beating differently.</p>
+        </div>
+    </div>
+   <div class="slide">
+        <img src="images/story/8.jpg" alt="Slide 9">
+        <div class="slide-content">
+            <p>One day, we went out for cocktails. It was cold. I was wearing a short-sleeved shirt, and she had her warm jacket on. She asked, "Are you cold?" I lied and said, "No," even though I was freezing.</p>
+        </div>
+    </div>
+	<div class="slide">
+        <img src="images/story/9.jpg" alt="Slide 10">
+        <div class="slide-content">
+            <p>Then, slowly, she leaned in—once, twice, three times—trying to kiss my neck.But then, I turned and kissed her lips.</p>
+        </div>
+    </div>
+	 <div class="slide">
+        <img src="images/story/10.jpg" alt="Slide 11">
+        <div class="slide-content">
+            <p>That night, when we reached her home, I kissed her again. It was our first real kiss.</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="images/story/11.jpg" alt="Slide 8">
+        <div class="slide-content">
+            <p>Day by day, we got closer. I would wait for her after university just to take her home. She would call me, saying she was bored, asking me to entertain her.</p>
+        </div>
+    </div>
+
+ 
+
+    
+
+   
+
+    <div class="slide">
+        <img src="images/story/12.jpg" alt="Slide 12">
+        <div class="slide-content">
+            <p>Another night, we skipped our classes just to go on a cruise together.</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="images/story/13.jpg" alt="Slide 13">
+        <div class="slide-content">
+            <p>Then came the night when I missed her so much. It was a Saturday. I showed up at her house at 3 AM, and we watched the sunrise together. It was our first sunrise.</p>
+        </div>
+    </div>
+<div class="slide">
+        <img src="images/story/14.jpg" alt="Slide 14">
+        <div class="slide-content">
+            <p>We kept getting closer, day after day, and we both just went with the flow. We weren’t overthinking, we weren’t planning—just enjoying each other’s company. If it worked out, it worked out. If it didn’t, we wouldn’t force it.
+</p>
+
+
+        </div>
+    </div>
+<div class="slide">
+
+        <img src="images/story/15.jpg" alt="Slide 14">
+			<div class="slide-content">
+             <p>But I fell. Hard.</p>
+            <p>She fell too.</p>
+
+        </div>
+    </div>
+	
+
+
+		
+	 <div class="slide">
+        <img src="images/story/16.jpg" alt="Slide 13">
+        <div class="slide-content">
+            <p>It got to a point where all I wanted was to see her, to kiss her, to hold her, to go on new adventures together.
+</p>
+        </div>
+    </div>
+	 <div class="slide">
+        <img src="images/story/17.jpg" alt="Slide 13">
+        <div class="slide-content">
+            <p>I don’t know how we ended up loving each other this much, but we did.
+
+</p><p>We fell in love in the deepest, truest way.
+
+
+</p>
+        </div>
+    </div>
+	 <div class="slide">
+        <img src="images/story/18.jpg" alt="Slide 13">
+        <div class="slide-content">
+            <p>When we’re together, we don’t need anything else.</p>
+            <p>We forget our phones.
+</p>
+            <p>We forget social media.</p>
+            <p>We forget the world.</p>
+            <p>Because we have each other.</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="images/story/19.jpg" alt="Slide 14">
+        <div class="slide-content">
+            <p>We fell in love in the deepest, truest way.</p>
+            <p>We respect each other.</p>
+            <p>We understand each other.</p>
+            <p>We support each other.</p>
+            <p>We push each other to be better.</p>
+            <p>We protect our relationship.</p>
+            <p>We keep moving forward.</p>
+        </div>
+    </div>
+<div class="slide">
+        <img src="images/story/20.jpg" alt="Slide 14">
+        <div class="slide-content">
+            <p>I lived the best Christmas with you.
+</p>
+            <p>The best family gathering.
+</p>
+            <p>The best camping trip.
+</p>
+            The best party.</p>
+ <p>The best trip to the sea.</p>
+ <p>The best sunset.</p>
+ <p>The best sunrise.</p>
+ 
+
+        </div>
+    </div>
+	  <div class="slide">
+        <img src="images/story/21.jpg" alt="Slide 14">
+        <div class="slide-content">
+           <p>The best New Year.</p>
+ <p>The best birthday—yours and mine.</p>
+ <p>The best story’s Day.</p>
+ <p>The best spa day.</p>
+ <p>The best road trip.</p>
+
+ <p>You are the best part of my life.</p>
+        </div>
+    </div>
+   
+        <div class="slide">
+            <img src="images/story/22.jpg" alt="Conclusion">
+            <div class="slide-content">
+                <p>Ahla iyyem, iyyem l jem3a</p>
+                <p>And the best days of my life… are the ones spent with you.</p>
+                <p>I love you. ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <div class="nav-arrow prev" onclick="prevSlide()">❮</div>
+    <div class="nav-arrow next" onclick="nextSlide()">❯</div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('show', i === index);
+            });
+        }
+
+        function openLetter() {
+            const letterPage = document.getElementById('letterPage');
+            letterPage.classList.add('hide');
+
+            setTimeout(() => {
+                letterPage.style.display = 'none';
+                document.getElementById('slideshowContainer').style.display = 'block';
+            }, 1000);
+
+            // Start music when button is clicked
+            const audio = document.getElementById('bg-audio');
+            audio.muted = false;
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    showSlide(currentSlide);
+
+    // Redirect to menu.html if it's the last slide
+    if (currentSlide === 0) { 
+        window.location.href = "menu.html";
+    }
+}
+
+        function calculateTimeDifference(anniversaryDate) {
+            const now = new Date();
+            const anniversary = new Date(anniversaryDate);
+            let diff = now - anniversary;
+
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+            diff -= years * (1000 * 60 * 60 * 24 * 365);
+
+            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+            diff -= months * (1000 * 60 * 60 * 24 * 30);
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            diff -= days * (1000 * 60 * 60 * 24);
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+
+            // Update the time difference text
+            document.getElementById('timeDiffText').innerHTML = `
+                ${years} Years, ${months} Months, ${days} Days, ${hours} Hours
+                <br><strong>of Wonderful Moments</strong>
+            `;
+        }
+    </script>
+</body>
