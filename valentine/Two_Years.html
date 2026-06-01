@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>730 Days With You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d8b46a;
+            --soft-gold: #f4e2b8;
+            --ivory: #fff8ec;
+            --deep: #0e0b10;
+            --wine: #2a1018;
+            --glass: rgba(18, 14, 18, 0.58);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+            background: url('images/2-years-aniversay/1.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            color: var(--ivory);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(216, 180, 106, 0.22), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(80, 28, 44, 0.35), transparent 35%),
+                linear-gradient(135deg, rgba(7, 6, 9, 0.84), rgba(42, 16, 24, 0.62));
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 22px;
+            border: 1px solid rgba(216, 180, 106, 0.35);
+            border-radius: 28px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .letter-page {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(8, 7, 10, 0.52);
+            backdrop-filter: blur(9px);
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            transform: translateY(0);
+            opacity: 1;
+            text-align: center;
+            padding: 28px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .letter-page::before {
+            content: "Our Anniversary Letter";
+            font-size: 0.85rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--soft-gold);
+            margin-bottom: 18px;
+            opacity: 0.92;
+        }
+
+        .letter-page h1 {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-family: 'Great Vibes', cursive;
+            color: var(--ivory);
+            margin: 0 0 20px;
+            font-weight: 400;
+            text-shadow: 0 8px 35px rgba(0, 0, 0, 0.65);
+        }
+
+        .letter-page h1::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 1px;
+            margin: 20px auto 0;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .letter-page.hide {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .letter-button {
+            font-size: 1.6em;
+            padding: 14px 34px;
+            background: linear-gradient(135deg, rgba(255, 248, 236, 0.96), rgba(244, 226, 184, 0.88));
+            color: #28100f;
+            border: 1px solid rgba(216, 180, 106, 0.85);
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: 'Great Vibes', cursive;
+            display: inline-block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            margin-top: 22px;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+        }
+
+        .letter-button:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #fff8ec, #d8b46a);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45), 0 0 25px rgba(216, 180, 106, 0.35);
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            overflow: hidden;
+            display: none;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, rgba(6, 5, 8, 0.72), rgba(20, 12, 17, 0.36), rgba(6, 5, 8, 0.72)),
+                radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.34) 80%);
+            z-index: 1;
+        }
+
+        .slide.show {
+            opacity: 1;
+        }
+
+        .slide img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.78) saturate(0.88) contrast(1.06);
+            transform: scale(1.03);
+        }
+
+        .slide-content {
+            position: relative;
+            padding: clamp(26px, 4vw, 56px);
+            background: linear-gradient(145deg, rgba(16, 13, 17, 0.72), rgba(42, 16, 24, 0.56));
+            border: 1px solid rgba(216, 180, 106, 0.42);
+            border-radius: 28px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.55rem, 3vw, 2.4rem);
+            line-height: 1.48;
+            text-align: center;
+            max-width: 760px;
+            margin: 24px;
+            z-index: 2;
+            color: var(--ivory);
+        }
+
+        .slide-content::before,
+        .slide-content::after {
+            content: "";
+            position: absolute;
+            width: 72px;
+            height: 72px;
+            border-color: rgba(216, 180, 106, 0.75);
+            pointer-events: none;
+        }
+
+        .slide-content::before {
+            top: 14px;
+            left: 14px;
+            border-top: 1px solid;
+            border-left: 1px solid;
+            border-radius: 18px 0 0 0;
+        }
+
+        .slide-content::after {
+            right: 14px;
+            bottom: 14px;
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+            border-radius: 0 0 18px 0;
+        }
+
+        .slide-content h1 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            color: var(--soft-gold);
+            font-weight: 400;
+            text-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+        }
+
+        .slide-content p {
+            margin: 10px 0;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide-content strong {
+            color: var(--soft-gold);
+            font-weight: 400;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            z-index: 10;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2em;
+            color: rgba(255, 248, 236, 0.86);
+            background: rgba(10, 8, 12, 0.36);
+            border: 1px solid rgba(216, 180, 106, 0.36);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-arrow:hover {
+            color: var(--soft-gold);
+            background: rgba(216, 180, 106, 0.16);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .prev {
+            left: 30px;
+            transform: translateY(-50%);
+        }
+
+        .next {
+            right: 30px;
+            transform: translateY(-50%);
+        }
+
+        #timeDiffHeader {
+            background-color: transparent;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        #timeDiffText {
+            font-size: 1.05em;
+            color: var(--soft-gold);
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            body::after {
+                inset: 12px;
+                border-radius: 20px;
+            }
+
+            .slide-content {
+                max-width: 88%;
+                padding: 30px 24px;
+            }
+
+            .nav-arrow {
+                width: 44px;
+                height: 44px;
+                font-size: 1.8em;
+            }
+
+            .prev { left: 14px; }
+            .next { right: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .letter-page::before {
+                letter-spacing: 3px;
+                font-size: 0.72rem;
+            }
+
+            .slide-content {
+                max-width: 90%;
+                font-size: 1.35rem;
+                border-radius: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- First page with letter and title -->
+ <div class="letter-page" id="letterPage">
+    <!-- Original Message -->
+    <h1 id="heartMessage">730 Days Later... And I'd Still Choose You</h1>
+    
+    <!-- Display the time difference header with transparent background -->
+    <div id="timeDiffHeader" style="display: none;">
+        <p id="timeDiffText"></p>
+    </div>
+    
+    <button class="letter-button" id="openLetterBtn" onclick="openLetter()">Open the Letter</button>
+</div>
+
+
+
+
+    <!-- Audio Player with Muted Attribute Initially -->
+    <audio id="bg-audio" autoplay loop muted>
+        <source src="background-music.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="slideshow-container" id="slideshowContainer">
+        <div class="slide show">
+            <img src="images/2-years-aniversay/1.jpeg" alt="Slide 1">
+            <div class="slide-content">
+                <h1>730 Days With You</h1>
+                <p>My First Love,</p>
+                <p>Thank you for the 730 days we have shared together.</p>
+                <p>For every smile, every laugh, every little moment that became part of our story.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/2.jpeg" alt="Slide 2">
+            <div class="slide-content">
+                <p>Thank you for the beautiful memories.</p>
+                <p>For the good days that felt endless.</p>
+                <p>For the difficult days that taught us how strong we can be together.</p>            </div>
+        </div>
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/3.jpeg" alt="Slide 3">
+            <div class="slide-content">
+                <p>Thank you for every little thing.</p>
+                <p>The random conversations.</p>
+                <p>The tahhtilllll version of you. </p>
+                <p>The moments that seemed ordinary but became unforgettable.</p>            </div>
+        </div>
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/4.jpeg" alt="Slide 4">
+            <div class="slide-content">
+                <p>One of my favorite things is watching you grow.</p>
+                <p>Watching you become more confident, stronger, and closer to your dreams every day.</p>            </div>
+        </div>
+
+        
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/6.jpeg" alt="Slide 6">
+            <div class="slide-content">
+                <p>I know we are going through a challenging chapter.</p>
+                <p>We are both changing.</p>
+                <p>Learning.</p>
+                <p>Growing.</p>            </div>
+        </div>
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/7.jpeg" alt="Slide 7">
+            <div class="slide-content">
+                <p>Sometimes growth feels uncomfortable.</p>
+                <p>Sometimes the road gets confusing.</p>
+                <p>But I truly believe this journey is preparing us for something even more beautiful ahead.</p>                </div>
+        </div>
+        <div class="slide">
+            <img src="images/2-years-aniversay/12.jpeg" alt="Slide 8">
+            <div class="slide-content">
+                <p>I know you'll achieve goals that seem impossible today.</p>
+                <p>Because every day you prove how capable, determined, and special you are.</p>           </div>
+        </div>
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/8.jpeg" alt="Slide 9">
+            <div class="slide-content">
+                <p>And next year, when I look at you again...</p>
+                <p>I know I will see an even stronger version of you.</p>
+                <p>A happier version.</p>
+                <p>An even more successful version.</p>            </div>
+        </div>
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/9.jpeg" alt="Slide 10">
+            <div class="slide-content">
+                <p>No matter where life takes us...</p>
+                <p>No matter how much we grow...</p>
+                <p>I hope we continue growing side by side.</p>            </div>
+        </div>
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/10.jpeg" alt="Slide 11">
+            <div class="slide-content">
+                <p>I hope God blesses us with beautiful days.</p>
+                <p>Days filled with peace, love, laughter, and countless memories.</p>            </div>
+        </div>
+        <div class="slide">
+            <img src="images/2-years-aniversay/5.jpeg" alt="Slide 5">
+            <div class="slide-content">
+                <p>"Liliiii kechekkkkkkkkkk. hewwooooooooo feffonnnnnnnn"</p>
+                <p>"tatttillllllllll"</p>
+                <p>"nay ne wayyyyyyy"</p>
+                <p>"ya ekht l chliteeeeeeeeeeeee"</p>
+                <BR>
+                <p>haw li alla ma yerhremne menunnn</p>            </div>
+        </div>
+
+        <div class="slide">
+            <img src="images/2-years-aniversay/11.jpeg" alt="Slide 12">
+            <div class="slide-content">
+                <p>And above all...</p>
+                <p>I hope life never pulls us apart.</p>
+                <p>Because after 730 days,</p>
+                <p>you are still my favorite person, my greatest blessing, and my first love.</p>
+                <p><strong>I love you ❤️</strong></p>            </div>
+        </div>
+
+
+     
+
+        <!-- Navigation Arrows -->
+        <div class="nav-arrow prev" onclick="prevSlide()">❮</div>
+        <div class="nav-arrow next" onclick="nextSlide()">❯</div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('show');
+                if (i === index) {
+                    slide.classList.add('show');
+                }
+            });
+        }
+
+        function openLetter() {
+            const letterPage = document.getElementById('letterPage');
+            const button = document.getElementById('openLetterBtn');
+            letterPage.classList.add('hide');
+            
+            setTimeout(() => {
+                letterPage.style.display = 'none';
+                document.getElementById('slideshowContainer').style.display = 'block';
+            }, 1000);
+
+            // Start the music on button click
+            const audio = document.getElementById('bg-audio');
+            audio.muted = false;
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+       function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    showSlide(currentSlide);
+
+    // Redirect to menu.html if it's the last slide
+    if (currentSlide === 0) { 
+        window.location.href = "menu.html";
+    }
+}
+
+
+
+function calculateTimeDifference(anniversaryDate) {
+    const now = new Date();
+    const anniversary = new Date(anniversaryDate);
+
+    // Calculate time difference
+    let diff = now - anniversary;
+
+    const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+    diff -= years * (1000 * 60 * 60 * 24 * 365);
+
+    const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+    diff -= months * (1000 * 60 * 60 * 24 * 30);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * (1000 * 60 * 60 * 24);
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+
+    // Update the time difference text
+    const timeDiffTextContent = `
+        ${years} Years, ${months} Months, ${days} Days, ${hours} Hours
+        <br><strong>of Wonderful Moments</strong>
+    `;
+    timeDiffText.innerHTML = timeDiffTextContent;
+}
+
+
+    </script>
+</body>
+</html>

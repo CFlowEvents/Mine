@@ -1,10 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Our Journey</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
     <style>
         body, html {
             margin: 0;
@@ -13,14 +16,14 @@
             height: 100%;
             font-family: 'Roboto', sans-serif;
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
+            justify-content: center;
+            align-items: center;
             flex-direction: column;
             position: relative;
             overflow: hidden;
+            color: #fff;
         }
 
-        /* Background image */
         .background {
             position: fixed;
             top: 0;
@@ -29,69 +32,75 @@
             height: 100%;
             background: url('images/valentine/14.jpg') no-repeat center center fixed;
             background-size: cover;
-            z-index: -2;
+            z-index: -3;
         }
 
-        /* Blur overlay with fade effect */
         .blur-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            backdrop-filter: blur(10px);
-            background: rgba(0, 0, 0, 0.4);
-            z-index: -1;
+            backdrop-filter: blur(8px);
+            background: linear-gradient(
+                rgba(0, 0, 0, 0.35),
+                rgba(0, 0, 0, 0.25)
+            );
+            z-index: -2;
             transition: backdrop-filter 3s ease-out, background 3s ease-out;
         }
 
-        /* Header */
         .header {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)); /* Gradient background */
-            color: #fff;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            min-width: 340px;
+            padding: 18px 35px;
             text-align: center;
-            padding: 18px;
-            font-size: 1.4em;
-            font-family: 'Roboto Mono', monospace;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-            opacity: 0; /* Start hidden */
-            transition: opacity 3s ease-in-out; /* Fade-in effect */
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
             z-index: 100;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
         }
 
-        /* "Love" text below the time */
+        #time-difference {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: #f4e7c5;
+            text-shadow: 0 3px 22px rgba(0, 0, 0, 0.85);
+        }
+
         .love-text {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.5em;
-            margin-top: 10px;
-            color: #ff4b3a;
-            opacity: 0; /* Start hidden */
-            transition: opacity 3s ease-in-out; /* Fade-in effect */
+            font-size: 2.9rem;
+            margin-top: 4px;
+            color: #d4af37;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+            text-shadow: 0 3px 25px rgba(0, 0, 0, 0.8);
         }
 
-        /* Container for buttons */
         .container {
             text-align: center;
             padding: 20px;
             width: 90%;
-            max-width: 500px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            max-width: 550px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
             color: #fff;
-            overflow-y: auto;
             max-height: 80vh;
+            overflow-y: auto;
             scrollbar-width: none;
-            opacity: 0; /* Start hidden */
-            transition: opacity 3s ease-in-out; /* Fade-in effect */
-            margin-top: 170px; /* Add padding between header and menu */
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+            margin-top: 170px;
             z-index: 1;
         }
 
@@ -101,136 +110,216 @@
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 3em;
-            margin-bottom: 20px;
+            font-size: 4.5rem;
+            color: #f4e7c5;
+            margin-bottom: 40px;
             opacity: 0;
             transition: opacity 3s ease-in-out;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.75);
+            font-weight: 400;
         }
 
-        /* Buttons */
         .menu-button {
             display: block;
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            font-size: 1.3em;
-            font-weight: bold;
+            padding: 18px;
+            margin: 16px 0;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            letter-spacing: 1px;
             color: #fff;
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.28);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            border-radius: 22px;
             cursor: pointer;
-            transition: all 0.3s ease-in-out, opacity 3s ease-in-out;
+            transition: all 0.4s ease, opacity 3s ease-in-out;
             opacity: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
         }
 
         .menu-button:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #ff4b3a;
+            transform: translateY(-3px);
+            background: rgba(212, 175, 55, 0.18);
+            border-color: #d4af37;
+            box-shadow: 0 12px 28px rgba(212, 175, 55, 0.25);
         }
 
-        /* Special Valentine button */
         .valentine-button {
-            border-color: #ff2a2a;
-            color: #ff2a2a;
-            font-size: 1.5em;
+            color: #f4e7c5;
+            border-color: rgba(244, 231, 197, 0.7);
         }
 
         .valentine-button:hover {
-            background: rgba(255, 0, 0, 0.3);
-            border-color: #ff0000;
+            background: rgba(244, 231, 197, 0.16);
+            border-color: #f4e7c5;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                min-width: 280px;
+                top: 20px;
+                padding: 14px 20px;
+            }
+
+            #time-difference {
+                font-size: 1.35rem;
+                letter-spacing: 1px;
+            }
+
+            .love-text {
+                font-size: 2.3rem;
+            }
+
+            h1 {
+                font-size: 3.6rem;
+                margin-bottom: 30px;
+            }
+
+            .container {
+                margin-top: 150px;
+                width: 88%;
+            }
+
+            .menu-button {
+                font-size: 1.05rem;
+                padding: 16px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="background"></div>
     <div class="blur-overlay" id="blur"></div>
 
-    <!-- Header -->
     <div class="header" id="header">
         <span id="time-difference"></span>
         <div class="love-text" id="love-text">of Love</div>
     </div>
 
     <div class="container" id="content">
-        <h1 id="title">Choose Your Destination</h1>
-        <button class="menu-button valentine-button" onclick="fadeOutAndRedirect('valentine.html')">Valentine</button>
-        <button class="menu-button" onclick="fadeOutAndRedirect('Story.html')">Our Story</button>
+        <h1 id="title">Our Journey</h1>
+
+        <button class="menu-button valentine-button" onclick="fadeOutAndRedirect('valentine.html')">
+            Valentine
+        </button>
+
+        <button class="menu-button" onclick="fadeOutAndRedirect('Story.html')">
+            Our Story
+        </button>
+
+        <button class="menu-button" onclick="fadeOutAndRedirect('Two_Years.html')">
+            Two Years Anniversary
+        </button>
     </div>
 
     <script>
-        // Gradual blur fade-out effect and content fade-in
         window.onload = function() {
-            // Fade out the blur in steps
             setTimeout(() => {
-                document.getElementById("blur").style.backdropFilter = "blur(10px)";
-                document.getElementById("blur").style.background = "rgba(0, 0, 0, 0.2)";
-            }, 2000);
+                document.getElementById("blur").style.backdropFilter = "blur(6px)";
+                document.getElementById("blur").style.background = "rgba(0, 0, 0, 0.25)";
+            }, 1500);
 
             setTimeout(() => {
-                document.getElementById("blur").style.backdropFilter = "blur(5px)";
-                document.getElementById("blur").style.background = "rgba(0, 0, 0, 0.1)";
-            }, 3000);
+                document.getElementById("blur").style.backdropFilter = "blur(3px)";
+                document.getElementById("blur").style.background = "rgba(0, 0, 0, 0.18)";
+            }, 2800);
 
             setTimeout(() => {
                 document.getElementById("blur").style.backdropFilter = "blur(0px)";
-                document.getElementById("blur").style.background = "rgba(0, 0, 0, 0)";
+                document.getElementById("blur").style.background = "rgba(0, 0, 0, 0.12)";
             }, 4000);
 
-            // Fade in content gradually
             setTimeout(() => {
                 document.getElementById("content").style.opacity = "1";
                 document.getElementById("title").style.opacity = "1";
 
                 let buttons = document.getElementsByClassName("menu-button");
+
                 for (let i = 0; i < buttons.length; i++) {
                     setTimeout(() => {
                         buttons[i].style.opacity = "1";
-                    }, 500 * i); // Delay each button appearing
+                    }, 450 * i);
                 }
-            }, 1000); // Start after 1s
+            }, 1000);
 
-            // Fade in header gradually
             setTimeout(() => {
                 document.getElementById("header").style.opacity = "1";
-            }, 1500); // Header fades in shortly after content
+            }, 1300);
 
-            // Fade in "Love" text gradually
             setTimeout(() => {
                 document.getElementById("love-text").style.opacity = "1";
-            }, 1800); // "Love" text fades in after header
-           
-            // Initialize the countdown
+            }, 1700);
+
             updateTimeDifference();
-            setInterval(updateTimeDifference, 1000); // Update every second
+            setInterval(updateTimeDifference, 1000);
         };
 
-        // Function to update time difference
         function updateTimeDifference() {
-            const startDate = new Date('2024-06-08T00:00:00');
-            const currentDate = new Date();
-            const diff = currentDate - startDate;
+    const startDate = new Date('2024-06-08T00:00:00');
+    const now = new Date();
 
-            // Calculate the time difference in years, months, days, hours, minutes, seconds
-            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-            const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30));
-            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    let years = now.getFullYear() - startDate.getFullYear();
+    let months = now.getMonth() - startDate.getMonth();
+    let days = now.getDate() - startDate.getDate();
 
-            // Display the time difference in the header
-            document.getElementById("time-difference").innerHTML =
-                `${years}y ${months}m ${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
+    if (days < 0) {
+        months--;
 
-        // Function to fade out content and redirect
+        const previousMonthDays = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            0
+        ).getDate();
+
+        days += previousMonthDays;
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    const anniversaryThisMonth = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        startDate.getDate()
+    );
+
+    let timeDiff;
+
+    if (now >= anniversaryThisMonth) {
+        timeDiff = now - anniversaryThisMonth;
+    } else {
+        const previousAnniversary = new Date(
+            now.getFullYear(),
+            now.getMonth() - 1,
+            startDate.getDate()
+        );
+
+        timeDiff = now - previousAnniversary;
+    }
+
+    const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+    document.getElementById("time-difference").innerHTML =
+        `${years}y ${months}m ${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
         function fadeOutAndRedirect(url) {
             const content = document.getElementById("content");
-            content.style.transition = "opacity 1s ease-in-out";
-            content.style.opacity = "0"; // Fade out content
+            const header = document.getElementById("header");
 
-            // After fading out, redirect after 1 second
+            content.style.transition = "opacity 1s ease-in-out";
+            header.style.transition = "opacity 1s ease-in-out";
+
+            content.style.opacity = "0";
+            header.style.opacity = "0";
+
             setTimeout(() => {
                 window.location.href = url;
             }, 1000);
@@ -238,3 +327,4 @@
     </script>
 </body>
 </html>
+    
